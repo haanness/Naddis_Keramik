@@ -5,16 +5,18 @@
 {% block content %}
 <div class="portfolio-grid">
   {% for kat in kategorien %}
-  <div class="portfolio-item">
+  <a href="/{{ kat.slug }}.html" class="portfolio-item">
     <div class="portfolio-item-image">
       {% if kat.bilder and kat.bilder|length > 0 %}
       <img src="{{ kat.bilder[0].bild }}"
            alt="{{ kat.bilder[0].alt }}"
            loading="{% if loop.index <= 3 %}eager{% else %}lazy{% endif %}">
+      {% else %}
+      <div class="portfolio-item-placeholder"></div>
       {% endif %}
     </div>
     <div class="portfolio-item-label">{{ kat.name }}</div>
-  </div>
+  </a>
   {% endfor %}
 </div>
 {% endblock %}
