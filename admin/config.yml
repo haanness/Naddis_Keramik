@@ -1,0 +1,55 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/portfolio"
+public_folder: "/images/portfolio"
+
+locale: de
+
+collections:
+  - name: "kategorien"
+    label: "Kategorien"
+    files:
+      - name: "kategorien"
+        label: "Portfolio Kategorien"
+        file: "_data/kategorien.yaml"
+        fields:
+          - name: "kategorien"
+            label: "Kategorien"
+            label_singular: "Kategorie"
+            widget: list
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: slug, label: "Slug (URL-Name, keine Leerzeichen)", widget: string }
+              - name: bilder
+                label: "Bilder"
+                label_singular: "Bild"
+                widget: list
+                fields:
+                  - { name: bild, label: "Bild", widget: image }
+                  - { name: alt, label: "Bildbeschreibung", widget: string }
+
+  - name: "seiten"
+    label: "Seiten"
+    files:
+      - name: "about"
+        label: "About me"
+        file: "_data/about.yaml"
+        fields:
+          - { name: foto, label: "Profilfoto", widget: image }
+          - name: text_it
+            label: "Text (Italiano)"
+            widget: list
+            label_singular: "Absatz"
+            fields:
+              - { name: absatz, label: "Absatz", widget: text }
+          - name: text_en
+            label: "Text (English)"
+            widget: list
+            label_singular: "Absatz"
+            fields:
+              - { name: absatz, label: "Absatz", widget: text }
+          - { name: email, label: "E-Mail", widget: string }
+          - { name: telefon, label: "Telefon", widget: string }
+          - { name: instagram, label: "Instagram Handle (ohne @)", widget: string }
