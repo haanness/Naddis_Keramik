@@ -16,13 +16,21 @@
 <div class="kategorie-grid">
   {% for bild in kat.bilder %}
   <div class="kategorie-item">
-    <img src="{{ bild.bild }}"
-         alt="{{ bild.alt }}"
-         loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}">
+    <img
+      src="{{ bild.bild }}"
+      alt="{{ bild.alt or kat.name }}"
+      loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}"
+      onerror="this.style.display='none'">
     {% if bild.alt %}
     <div class="kategorie-item-caption">{{ bild.alt }}</div>
     {% endif %}
   </div>
   {% endfor %}
+
+  {% if not kat.bilder or kat.bilder|length == 0 %}
+  <div class="kategorie-leer">
+    <p>Noch keine Bilder in dieser Kategorie.</p>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

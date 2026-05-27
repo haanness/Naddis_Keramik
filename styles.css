@@ -493,3 +493,13 @@ a.portfolio-item:hover .portfolio-item-image img {
   height: 100%;
   background: var(--light);
 }
+
+/* Leere Kategorie */
+.kategorie-leer {
+  grid-column: 1 / -1;
+  padding: 4rem 2rem;
+  text-align: center;
+  font-size: .9rem;
+  font-weight: 300;
+  color: hsl(0,0%,55%);
+}
