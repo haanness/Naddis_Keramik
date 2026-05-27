@@ -14,11 +14,16 @@ with open('_data/course.yaml', encoding='utf-8') as f:
 
 kategorien = []
 for fname in sorted(os.listdir('_kategorien')):
-    if fname.endswith('.yaml') or fname.endswith('.yml'):
-        with open(os.path.join('_kategorien', fname), encoding='utf-8') as f:
-            kat = yaml.safe_load(f)
-            if kat:
-                kategorien.append(kat)
+    if not (fname.endswith('.yaml') or fname.endswith('.yml')):
+        continue
+    with open(os.path.join('_kategorien', fname), encoding='utf-8') as f:
+        kat = yaml.safe_load(f)
+    if not kat:
+        continue
+    # Sicherstellen dass bilder immer eine Liste ist
+    if 'bilder' not in kat or kat['bilder'] is None:
+        kat['bilder'] = []
+    kategorien.append(kat)
 
 # dist/ aufbauen
 os.makedirs('dist', exist_ok=True)
@@ -36,7 +41,7 @@ os.makedirs('dist/images/portfolio', exist_ok=True)
 if os.path.exists('images/portfolio'):
     for fname in os.listdir('images/portfolio'):
         shutil.copy2(f'images/portfolio/{fname}', f'dist/images/portfolio/{fname}')
-    print(f'✓ dist/images/portfolio/  ({len(os.listdir("images/portfolio"))} Bilder)')
+    print(f'✓ dist/images/portfolio/ ({len(os.listdir("images/portfolio"))} Bilder)')
 
 ctx = dict(nav=nav, kategorien=kategorien)
 
@@ -50,7 +55,11 @@ for kat in kategorien:
         continue
     with open(f'dist/{slug}.html', 'w', encoding='utf-8') as f:
         f.write(env.get_template('kategorie.html').render(kat=kat, **ctx))
-    print(f'✓ dist/{slug}.html  ({len(kat.get("bilder", []))} Bilder)')
+    # Debug: zeige Felder der Bilder
+    for i, b in enumerate(kat.get('bilder', [])):
+        felder = [k for k in b.keys() if k != 'bild']
+        print(f'  Bild {i+1}: felder={felder}, wert={[b.get(k) for k in felder]}')
+    print(f'✓ dist/{slug}.html ({len(kat.get("bilder",[]))} Bilder)')
 
 with open('dist/about.html', 'w', encoding='utf-8') as f:
     f.write(env.get_template('about.html').render(about=about, **ctx))
@@ -60,4 +69,4 @@ with open('dist/course.html', 'w', encoding='utf-8') as f:
     f.write(env.get_template('course.html').render(course=course, **ctx))
 print('✓ dist/course.html')
 
-print(f'\nBuild fertig → dist/  ({len(kategorien)} Kategorien)')
+print(f'\nBuild fertig → dist/ ({len(kategorien)} Kategorien)')

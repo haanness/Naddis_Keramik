@@ -15,12 +15,13 @@
 
 <div class="kategorie-grid">
   {% for bild in kat.bilder %}
+  {% set beschreibung = bild.titel or bild.caption or bild.alt or bild.beschreibung or '' %}
   <div class="kategorie-item">
     <img src="{{ bild.bild }}"
-         alt="{{ bild.titel or kat.name }}"
+         alt="{{ beschreibung or kat.name }}"
          loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}">
-    {% if bild.titel %}
-    <div class="kategorie-item-caption">{{ bild.titel }}</div>
+    {% if beschreibung %}
+    <div class="kategorie-item-caption">{{ beschreibung }}</div>
     {% endif %}
   </div>
   {% endfor %}
