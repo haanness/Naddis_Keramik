@@ -32,8 +32,8 @@ collections:
         label_singular: Bild
         widget: list
         fields:
-          - { name: bild,    label: Bild,             widget: image  }
-          - { name: caption, label: Bildbeschreibung, widget: string, required: false }
+          - { name: bild,   label: Bild,              widget: image  }
+          - { name: titel,  label: Bildbeschreibung,  widget: string, required: false }
 
   # ── Navigation ──────────────────────────────────────────
   - name: navigation

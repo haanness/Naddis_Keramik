@@ -11,15 +11,7 @@
 
 <header class="site-header">
   <div class="header-top">
-    <div class="header-social">
-      <a href="https://www.instagram.com/{{ nav.instagram|default('naddis_keramik') }}/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4.5"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-    </div>
+    <div class="header-social"><!-- leer, nur für grid-spacing --></div>
     <div class="header-logo">
       <a href="/index.html">
         <img src="https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/15bc7b4c-04c0-4778-851c-8a2e21671356/favo.png?format=300w" alt="Naddi's Ceramiche">
@@ -50,7 +42,15 @@
 </main>
 
 <footer class="site-footer">
-  Naddis Ceramiche &nbsp;·&nbsp; PARTITA IVA 03307290217
+  <a class="footer-instagram" href="https://www.instagram.com/naddis_keramik/" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4.5"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+    naddis_keramik
+  </a>
+  <span>Naddis Ceramiche &nbsp;·&nbsp; PARTITA IVA 03307290217</span>
 </footer>
 
 <script src="/scripts.js"></script>

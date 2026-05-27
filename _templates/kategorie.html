@@ -17,10 +17,10 @@
   {% for bild in kat.bilder %}
   <div class="kategorie-item">
     <img src="{{ bild.bild }}"
-         alt="{{ bild.caption or kat.name }}"
+         alt="{{ bild.titel or kat.name }}"
          loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}">
-    {% if bild.caption %}
-    <div class="kategorie-item-caption">{{ bild.caption }}</div>
+    {% if bild.titel %}
+    <div class="kategorie-item-caption">{{ bild.titel }}</div>
     {% endif %}
   </div>
   {% endfor %}
