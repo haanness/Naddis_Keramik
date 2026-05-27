@@ -503,3 +503,26 @@ a.portfolio-item:hover .portfolio-item-image img {
   font-weight: 300;
   color: hsl(0,0%,55%);
 }
+
+/* =============================================
+   FREIE SEITEN
+============================================= */
+.freie-seite-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 100px) var(--gap);
+}
+
+.freie-seite-wrapper h1 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  letter-spacing: .04em;
+  margin-bottom: 2rem;
+}
+
+.freie-seite-wrapper p {
+  font-size: .9rem;
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}

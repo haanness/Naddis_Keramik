@@ -1,32 +1,26 @@
 {% extends "base.html" %}
-{% set page = 'about' %}
+{% set current_url = '/about.html' %}
 {% block title %}About me — Naddi's{% endblock %}
 
 {% block content %}
 <div class="about-wrapper">
   <div class="about-image">
-    <img src="{{ about.foto }}" alt="Nadia Mussner"
-         srcset="{{ about.foto }} 1x" loading="eager">
+    <img src="{{ about.foto }}" alt="Nadia Mussner" loading="eager">
   </div>
   <div class="about-content">
     <h1>About me</h1>
-
     <div class="about-text-block">
       {% for p in about.text_it %}
       <p>{{ p.absatz }}</p>
       {% endfor %}
     </div>
-
     <div class="about-lang-divider"></div>
-
     <div class="about-text-block">
       {% for p in about.text_en %}
       <p>{{ p.absatz }}</p>
       {% endfor %}
     </div>
-
     <div class="about-lang-divider"></div>
-
     <div class="about-contact">
       <h2>Contact</h2>
       <p>
@@ -34,7 +28,6 @@
         <a href="tel:{{ about.telefon|replace(' ','') }}">{{ about.telefon }}</a>
       </p>
     </div>
-
     <div class="about-social">
       <h3>Follow</h3>
       <a href="https://www.instagram.com/{{ about.instagram }}/" target="_blank" rel="noopener">

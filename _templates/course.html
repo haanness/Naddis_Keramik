@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% set page = 'course' %}
-{% block title %}Course — Naddi's{% endblock %}
+{% set current_url = '/course.html' %}
+{% block title %}{{ course.titel }} — Naddi's{% endblock %}
 
 {% block content %}
 <div class="course-wrapper">
-  <p>Im Moment sind keine Kurse verfügbar.</p>
-  <p>No courses available at the moment.</p>
-  <p>Al momento non ci sono corsi disponibili.</p>
+  {% for absatz in course.text %}
+  <p>{{ absatz.absatz }}</p>
+  {% endfor %}
 </div>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set current_url = '/' + seite.slug + '.html' %}
+{% block title %}{{ seite.titel }} — Naddi's{% endblock %}
+
+{% block content %}
+<div class="freie-seite-wrapper">
+  <h1>{{ seite.titel }}</h1>
+  {% for block in seite.inhalt %}
+  <p>{{ block.text }}</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -8,51 +8,103 @@ public_folder: "/images/portfolio"
 locale: de
 
 collections:
-  - name: "kategorien"
-    label: "Kategorien"
-    label_singular: "Kategorie"
-    folder: "_kategorien"
+
+  # ── Kategorien (Portfolio) ──────────────────────────────
+  - name: kategorien
+    label: Kategorien
+    label_singular: Kategorie
+    folder: _kategorien
     create: true
-    identifier_field: "name"
-    extension: "yaml"
-    format: "yaml"
+    identifier_field: name
+    extension: yaml
+    format: yaml
     fields:
-      - { name: name, label: "Name", widget: string }
-      - { name: slug, label: "URL-Name (keine Leerzeichen, keine Sonderzeichen)", widget: string, hint: "z.B. vasen, lampen, figure-forme" }
+      - { name: name,  label: Name, widget: string }
+      - { name: slug,  label: "URL-Name (keine Leerzeichen)", widget: string, hint: "z.B. vasen, neue-serie" }
       - name: titelbild
-        label: "Titelbild (wird auf der Startseite angezeigt)"
+        label: Titelbild (Startseite)
         widget: object
         fields:
-          - { name: bild, label: "Bild", widget: image }
-          - { name: alt, label: "Bildbeschreibung", widget: string }
+          - { name: bild, label: Bild,             widget: image  }
+          - { name: alt,  label: Bildbeschreibung, widget: string }
       - name: bilder
-        label: "Bilder in dieser Kategorie"
-        label_singular: "Bild"
+        label: Bilder
+        label_singular: Bild
         widget: list
         fields:
-          - { name: bild, label: "Bild", widget: image }
-          - { name: alt, label: "Bildbeschreibung", widget: string, required: false }
+          - { name: bild, label: Bild,             widget: image  }
+          - { name: alt,  label: Bildbeschreibung, widget: string, required: false }
 
-  - name: "seiten"
-    label: "Seiten"
-    files:
-      - name: "about"
-        label: "About me"
-        file: "_data/about.yaml"
+  # ── Freie Seiten ────────────────────────────────────────
+  - name: seiten
+    label: Seiten
+    label_singular: Seite
+    folder: _seiten
+    create: true
+    identifier_field: titel
+    extension: yaml
+    format: yaml
+    fields:
+      - { name: titel, label: "Seitentitel",                    widget: string }
+      - { name: slug,  label: "URL-Name (keine Leerzeichen)",   widget: string, hint: "z.B. kontakt, impressum, presse" }
+      - name: inhalt
+        label: Inhalt
+        label_singular: Abschnitt
+        widget: list
         fields:
-          - { name: foto, label: "Profilfoto", widget: image }
+          - { name: text, label: Text, widget: text }
+
+  # ── Navigation ──────────────────────────────────────────
+  - name: navigation
+    label: Navigation
+    files:
+      - name: nav
+        label: Navigationsleiste
+        file: _data/nav.yaml
+        fields:
+          - name: links
+            label: Links
+            label_singular: Link
+            widget: list
+            hint: "Reihenfolge per Drag & Drop ändern. Neue Seiten hier eintragen damit sie in der Navbar erscheinen."
+            fields:
+              - { name: titel, label: Titel, widget: string }
+              - { name: url,   label: URL,   widget: string, hint: "z.B. /kontakt.html" }
+
+  # ── Fixe Seiten ─────────────────────────────────────────
+  - name: fixe-seiten
+    label: "Fixe Seiten"
+    files:
+
+      - name: about
+        label: About me
+        file: _data/about.yaml
+        fields:
+          - { name: foto, label: Profilfoto, widget: image }
           - name: text_it
             label: "Text (Italiano)"
             widget: list
-            label_singular: "Absatz"
+            label_singular: Absatz
             fields:
-              - { name: absatz, label: "Absatz", widget: text }
+              - { name: absatz, label: Absatz, widget: text }
           - name: text_en
             label: "Text (English)"
             widget: list
-            label_singular: "Absatz"
+            label_singular: Absatz
             fields:
-              - { name: absatz, label: "Absatz", widget: text }
-          - { name: email, label: "E-Mail", widget: string }
-          - { name: telefon, label: "Telefon", widget: string }
+              - { name: absatz, label: Absatz, widget: text }
+          - { name: email,     label: E-Mail,                   widget: string }
+          - { name: telefon,   label: Telefon,                  widget: string }
           - { name: instagram, label: "Instagram Handle (ohne @)", widget: string }
+
+      - name: course
+        label: Course
+        file: _data/course.yaml
+        fields:
+          - { name: titel, label: Seitentitel, widget: string }
+          - name: text
+            label: Texte
+            label_singular: Absatz
+            widget: list
+            fields:
+              - { name: absatz, label: Absatz, widget: text }

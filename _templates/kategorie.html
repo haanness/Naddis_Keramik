@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set page = 'portfolio' %}
+{% set current_url = '/' + kat.slug + '.html' %}
 {% block title %}{{ kat.name }} — Naddi's{% endblock %}
 
 {% block content %}
@@ -12,25 +12,19 @@
   </a>
   <h1>{{ kat.name }}</h1>
 </div>
-
 <div class="kategorie-grid">
   {% for bild in kat.bilder %}
   <div class="kategorie-item">
-    <img
-      src="{{ bild.bild }}"
-      alt="{{ bild.alt or kat.name }}"
-      loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}"
-      onerror="this.style.display='none'">
+    <img src="{{ bild.bild }}"
+         alt="{{ bild.alt or kat.name }}"
+         loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}">
     {% if bild.alt %}
     <div class="kategorie-item-caption">{{ bild.alt }}</div>
     {% endif %}
   </div>
   {% endfor %}
-
   {% if not kat.bilder or kat.bilder|length == 0 %}
-  <div class="kategorie-leer">
-    <p>Noch keine Bilder in dieser Kategorie.</p>
-  </div>
+  <div class="kategorie-leer"><p>Noch keine Bilder in dieser Kategorie.</p></div>
   {% endif %}
 </div>
 {% endblock %}

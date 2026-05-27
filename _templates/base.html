@@ -12,7 +12,7 @@
 <header class="site-header">
   <div class="header-top">
     <div class="header-social">
-      <a href="https://www.instagram.com/naddis_keramik/" target="_blank" rel="noopener" aria-label="Instagram">
+      <a href="https://www.instagram.com/{{ nav.instagram|default('naddis_keramik') }}/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
           <circle cx="12" cy="12" r="4.5"/>
@@ -32,17 +32,17 @@
     </div>
   </div>
   <nav class="header-nav">
-    <a href="/index.html" {% if page == 'portfolio' %}class="active"{% endif %}>Portfolio</a>
-    <a href="/about.html" {% if page == 'about' %}class="active"{% endif %}>About me</a>
-    <a href="/course.html" {% if page == 'course' %}class="active"{% endif %}>Course</a>
+    {% for link in nav.links %}
+    <a href="{{ link.url }}" {% if current_url == link.url %}class="active"{% endif %}>{{ link.titel }}</a>
+    {% endfor %}
   </nav>
 </header>
 
 <nav class="mobile-nav">
   <button class="mobile-nav-close" aria-label="Menü schließen">&times;</button>
-  <a href="/index.html">Portfolio</a>
-  <a href="/about.html">About me</a>
-  <a href="/course.html">Course</a>
+  {% for link in nav.links %}
+  <a href="{{ link.url }}">{{ link.titel }}</a>
+  {% endfor %}
 </nav>
 
 <main>
