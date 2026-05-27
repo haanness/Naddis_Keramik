@@ -32,27 +32,8 @@ collections:
         label_singular: Bild
         widget: list
         fields:
-          - { name: bild, label: Bild,             widget: image  }
-          - { name: alt,  label: Bildbeschreibung, widget: string, required: false }
-
-  # ── Freie Seiten ────────────────────────────────────────
-  - name: seiten
-    label: Seiten
-    label_singular: Seite
-    folder: _seiten
-    create: true
-    identifier_field: titel
-    extension: yaml
-    format: yaml
-    fields:
-      - { name: titel, label: "Seitentitel",                    widget: string }
-      - { name: slug,  label: "URL-Name (keine Leerzeichen)",   widget: string, hint: "z.B. kontakt, impressum, presse" }
-      - name: inhalt
-        label: Inhalt
-        label_singular: Abschnitt
-        widget: list
-        fields:
-          - { name: text, label: Text, widget: text }
+          - { name: bild,    label: Bild,             widget: image  }
+          - { name: caption, label: Bildbeschreibung, widget: string, required: false }
 
   # ── Navigation ──────────────────────────────────────────
   - name: navigation
@@ -66,7 +47,7 @@ collections:
             label: Links
             label_singular: Link
             widget: list
-            hint: "Reihenfolge per Drag & Drop ändern. Neue Seiten hier eintragen damit sie in der Navbar erscheinen."
+            hint: "Reihenfolge per Drag & Drop ändern."
             fields:
               - { name: titel, label: Titel, widget: string }
               - { name: url,   label: URL,   widget: string, hint: "z.B. /kontakt.html" }
@@ -93,8 +74,8 @@ collections:
             label_singular: Absatz
             fields:
               - { name: absatz, label: Absatz, widget: text }
-          - { name: email,     label: E-Mail,                   widget: string }
-          - { name: telefon,   label: Telefon,                  widget: string }
+          - { name: email,     label: E-Mail,                     widget: string }
+          - { name: telefon,   label: Telefon,                    widget: string }
           - { name: instagram, label: "Instagram Handle (ohne @)", widget: string }
 
       - name: course
