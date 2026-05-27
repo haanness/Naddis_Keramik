@@ -7,10 +7,14 @@
   {% for kat in kategorien %}
   <a href="/{{ kat.slug }}.html" class="portfolio-item">
     <div class="portfolio-item-image">
-      {% if kat.bilder and kat.bilder|length > 0 %}
+      {% if kat.titelbild %}
+      <img src="{{ kat.titelbild.bild }}"
+           alt="{{ kat.titelbild.alt }}"
+           loading="{% if loop.index <= 3 %}eager{% else %}lazy{% endif %}">
+      {% elif kat.bilder and kat.bilder|length > 0 %}
       <img src="{{ kat.bilder[0].bild }}"
            alt="{{ kat.bilder[0].alt }}"
-           loading="{% if loop.index <= 3 %}eager{% else %}lazy{% endif %}">
+           loading="lazy">
       {% else %}
       <div class="portfolio-item-placeholder"></div>
       {% endif %}

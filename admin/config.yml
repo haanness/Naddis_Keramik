@@ -10,25 +10,26 @@ locale: de
 collections:
   - name: "kategorien"
     label: "Kategorien"
-    files:
-      - name: "kategorien"
-        label: "Portfolio Kategorien"
-        file: "_data/kategorien.yaml"
+    label_singular: "Kategorie"
+    folder: "_kategorien"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: name, label: "Name", widget: string }
+      - { name: slug, label: "URL-Name (keine Leerzeichen, keine Sonderzeichen)", widget: string, hint: "z.B. vasen, lampen, figure-forme" }
+      - name: titelbild
+        label: "Titelbild (wird auf der Startseite angezeigt)"
+        widget: object
         fields:
-          - name: "kategorien"
-            label: "Kategorien"
-            label_singular: "Kategorie"
-            widget: list
-            fields:
-              - { name: name, label: "Name", widget: string }
-              - { name: slug, label: "Slug (URL-Name, keine Leerzeichen)", widget: string }
-              - name: bilder
-                label: "Bilder"
-                label_singular: "Bild"
-                widget: list
-                fields:
-                  - { name: bild, label: "Bild", widget: image }
-                  - { name: alt, label: "Bildbeschreibung", widget: string }
+          - { name: bild, label: "Bild", widget: image }
+          - { name: alt, label: "Bildbeschreibung", widget: string }
+      - name: bilder
+        label: "Bilder in dieser Kategorie"
+        label_singular: "Bild"
+        widget: list
+        fields:
+          - { name: bild, label: "Bild", widget: image }
+          - { name: alt, label: "Bildbeschreibung", widget: string, required: false }
 
   - name: "seiten"
     label: "Seiten"
