@@ -13,7 +13,9 @@ collections:
     label_singular: "Kategorie"
     folder: "_kategorien"
     create: true
-    slug: "{{slug}}"
+    identifier_field: "name"
+    extension: "yaml"
+    format: "yaml"
     fields:
       - { name: name, label: "Name", widget: string }
       - { name: slug, label: "URL-Name (keine Leerzeichen, keine Sonderzeichen)", widget: string, hint: "z.B. vasen, lampen, figure-forme" }
