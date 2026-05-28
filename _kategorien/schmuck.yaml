@@ -1,8 +1,11 @@
-name: Schmuck
+name_de: Schmuck
+name_it: Gioielli
 slug: schmuck
 titelbild:
   bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/38a51756-9870-4c10-8baa-a7eecdc60c13/DSCF0508.JPG?format=1000w
-  alt: Schmuck
+  alt_de: Schmuck
+  alt_it: Gioielli
 bilder:
   - bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/38a51756-9870-4c10-8baa-a7eecdc60c13/DSCF0508.JPG?format=1000w
-    titel: ''
+    beschreibung_de: Schmuck
+    beschreibung_it: Schmuck

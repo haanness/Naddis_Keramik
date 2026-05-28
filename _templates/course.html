@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% set current_url = '/course.html' %}
-{% block title %}{{ course.titel }} — Naddi's{% endblock %}
+{% set current_url = 'course.html' %}
+{% set current_file = 'course.html' %}
+{% block title %}{{ course['titel_' + lang] }} — Naddi's{% endblock %}
 
 {% block content %}
 <div class="course-wrapper">
-  {% for absatz in course.text %}
-  <p>{{ absatz.absatz }}</p>
+  {% for p in course['text_' + lang] %}
+  <p>{{ p.absatz }}</p>
   {% endfor %}
 </div>
 {% endblock %}

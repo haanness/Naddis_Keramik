@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Naddi's{% endblock %}</title>
+  <link rel="alternate" hreflang="de" href="/de/{{ current_file }}">
+  <link rel="alternate" hreflang="it" href="/it/{{ current_file }}">
   <link rel="stylesheet" href="/styles.css">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -11,9 +13,9 @@
 
 <header class="site-header">
   <div class="header-top">
-    <div class="header-social"><!-- leer, nur für grid-spacing --></div>
+    <div class="header-social"><!-- spacer --></div>
     <div class="header-logo">
-      <a href="/index.html">
+      <a href="/{{ lang }}/index.html">
         <img src="/images/portfolio/favo.png" alt="Naddi's Ceramiche">
       </a>
     </div>
@@ -25,16 +27,32 @@
   </div>
   <nav class="header-nav">
     {% for link in nav.links %}
-    <a href="{{ link.url }}" {% if current_url == link.url %}class="active"{% endif %}>{{ link.titel }}</a>
+    <a href="/{{ lang }}/{{ link.url }}"
+       {% if current_url == link.url %}class="active"{% endif %}>
+      {{ link['titel_' + lang] }}
+    </a>
     {% endfor %}
+    <span class="lang-divider"></span>
+    {% if lang == 'de' %}
+    <a href="/it/{{ current_file }}" class="lang-switch">IT</a>
+    {% else %}
+    <a href="/de/{{ current_file }}" class="lang-switch">DE</a>
+    {% endif %}
   </nav>
 </header>
 
 <nav class="mobile-nav">
   <button class="mobile-nav-close" aria-label="Menü schließen">&times;</button>
   {% for link in nav.links %}
-  <a href="{{ link.url }}">{{ link.titel }}</a>
+  <a href="/{{ lang }}/{{ link.url }}">{{ link['titel_' + lang] }}</a>
   {% endfor %}
+  <div class="mobile-lang">
+    {% if lang == 'de' %}
+    <a href="/it/{{ current_file }}">Italiano</a>
+    {% else %}
+    <a href="/de/{{ current_file }}">Deutsch</a>
+    {% endif %}
+  </div>
 </nav>
 
 <main>
@@ -54,16 +72,5 @@
 </footer>
 
 <script src="/scripts.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
 </body>
 </html>

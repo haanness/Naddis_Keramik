@@ -1,8 +1,11 @@
-name: Figure & forme
+name_de: Figuren & Formen
+name_it: Figure & forme
 slug: figure-forme
 titelbild:
   bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/7e8f2c5f-c51b-4fc1-a286-84a13f72d0df/maske.jpg?format=1000w
-  alt: Figure & forme
+  alt_de: Figuren & Formen
+  alt_it: Figure & forme
 bilder:
   - bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/7e8f2c5f-c51b-4fc1-a286-84a13f72d0df/maske.jpg?format=1000w
-    titel: ''
+    beschreibung_de: Figure & forme
+    beschreibung_it: Figure & forme

@@ -1,8 +1,11 @@
-name: Tazze - Tassen
+name_de: Tassen
+name_it: Tazze
 slug: tassen
 titelbild:
   bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/c57a5a72-0bcf-4aa2-9c9a-b9dffb86badb/espresso.jpg?format=1000w
-  alt: Tazze - Tassen
+  alt_de: Tassen
+  alt_it: Tazze
 bilder:
   - bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/c57a5a72-0bcf-4aa2-9c9a-b9dffb86badb/espresso.jpg?format=1000w
-    titel: ''
+    beschreibung_de: Tazze - Tassen
+    beschreibung_it: Tazze - Tassen

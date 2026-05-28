@@ -1,5 +1,6 @@
-titel: Course
-text:
+titel_de: Kurse
+titel_it: Corsi
+text_de:
   - absatz: Im Moment sind keine Kurse verfügbar.
-  - absatz: No courses available at the moment.
+text_it:
   - absatz: Al momento non ci sono corsi disponibili.

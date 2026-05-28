@@ -11,31 +11,34 @@ locale: de
 
 collections:
 
-  # ── Kategorien (Portfolio) ──────────────────────────────
+  # ── Kategorien ──────────────────────────────────────────
   - name: kategorien
     label: Kategorien
     label_singular: Kategorie
     folder: _kategorien
     create: true
-    identifier_field: name
+    identifier_field: name_de
     extension: yaml
     format: yaml
     fields:
-      - { name: name,  label: Name, widget: string }
-      - { name: slug,  label: "URL-Name (keine Leerzeichen)", widget: string, hint: "z.B. vasen, neue-serie" }
+      - { name: name_de, label: "Name (Deutsch)",    widget: string }
+      - { name: name_it, label: "Name (Italiano)",   widget: string }
+      - { name: slug,    label: "URL-Name",           widget: string, hint: "z.B. vasen, lampade — keine Leerzeichen" }
       - name: titelbild
         label: Titelbild (Startseite)
         widget: object
         fields:
-          - { name: bild, label: Bild,             widget: image  }
-          - { name: alt,  label: Bildbeschreibung, widget: string }
+          - { name: bild,   label: Bild,                  widget: image  }
+          - { name: alt_de, label: Bildbeschreibung (DE),  widget: string }
+          - { name: alt_it, label: Bildbeschreibung (IT),  widget: string }
       - name: bilder
         label: Bilder
         label_singular: Bild
         widget: list
         fields:
-          - { name: bild,   label: Bild,              widget: image  }
-          - { name: titel,  label: Bildbeschreibung,  widget: string, required: false }
+          - { name: bild,             label: Bild,                   widget: image  }
+          - { name: beschreibung_de,  label: Beschreibung (Deutsch),  widget: string, required: false }
+          - { name: beschreibung_it,  label: Descrizione (Italiano),  widget: string, required: false }
 
   # ── Navigation ──────────────────────────────────────────
   - name: navigation
@@ -49,14 +52,14 @@ collections:
             label: Links
             label_singular: Link
             widget: list
-            hint: "Reihenfolge per Drag & Drop ändern."
             fields:
-              - { name: titel, label: Titel, widget: string }
-              - { name: url,   label: URL,   widget: string, hint: "z.B. /kontakt.html" }
+              - { name: titel_de, label: "Titel (Deutsch)",  widget: string }
+              - { name: titel_it, label: "Titolo (Italiano)", widget: string }
+              - { name: url,      label: URL,                 widget: string }
 
   # ── Fixe Seiten ─────────────────────────────────────────
   - name: fixe-seiten
-    label: "Fixe Seiten"
+    label: Fixe Seiten
     files:
 
       - name: about
@@ -64,30 +67,37 @@ collections:
         file: _data/about.yaml
         fields:
           - { name: foto, label: Profilfoto, widget: image }
+          - name: text_de
+            label: Text (Deutsch)
+            widget: list
+            label_singular: Absatz
+            fields:
+              - { name: absatz, label: Absatz, widget: text }
           - name: text_it
-            label: "Text (Italiano)"
+            label: Testo (Italiano)
             widget: list
-            label_singular: Absatz
+            label_singular: Paragrafo
             fields:
-              - { name: absatz, label: Absatz, widget: text }
-          - name: text_en
-            label: "Text (English)"
-            widget: list
-            label_singular: Absatz
-            fields:
-              - { name: absatz, label: Absatz, widget: text }
-          - { name: email,     label: E-Mail,                     widget: string }
-          - { name: telefon,   label: Telefon,                    widget: string }
-          - { name: instagram, label: "Instagram Handle (ohne @)", widget: string }
+              - { name: absatz, label: Paragrafo, widget: text }
+          - { name: email,     label: E-Mail,                      widget: string }
+          - { name: telefon,   label: Telefon,                     widget: string }
+          - { name: instagram, label: "Instagram Handle (ohne @)",  widget: string }
 
       - name: course
-        label: Course
+        label: Kurse / Corsi
         file: _data/course.yaml
         fields:
-          - { name: titel, label: Seitentitel, widget: string }
-          - name: text
-            label: Texte
-            label_singular: Absatz
+          - { name: titel_de, label: "Seitentitel (Deutsch)",  widget: string }
+          - { name: titel_it, label: "Titolo (Italiano)",       widget: string }
+          - name: text_de
+            label: Text (Deutsch)
             widget: list
+            label_singular: Absatz
             fields:
               - { name: absatz, label: Absatz, widget: text }
+          - name: text_it
+            label: Testo (Italiano)
+            widget: list
+            label_singular: Paragrafo
+            fields:
+              - { name: absatz, label: Paragrafo, widget: text }

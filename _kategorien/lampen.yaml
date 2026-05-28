@@ -1,8 +1,11 @@
-name: Lampen
+name_de: Lampen
+name_it: Lampade
 slug: lampen
 titelbild:
   bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/2f7017b4-4f87-40b6-952d-f98b9bdd4e7d/DSCF0533.JPG?format=1000w
-  alt: Lampen
+  alt_de: Lampen
+  alt_it: Lampade
 bilder:
   - bild: https://images.squarespace-cdn.com/content/v1/6a021c65c0ade452f35f0aa9/2f7017b4-4f87-40b6-952d-f98b9bdd4e7d/DSCF0533.JPG?format=1000w
-    titel: ''
+    beschreibung_de: Lampen
+    beschreibung_it: Lampen

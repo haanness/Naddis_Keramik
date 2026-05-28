@@ -1,25 +1,22 @@
 {% extends "base.html" %}
-{% set current_url = '/index.html' %}
+{% set current_url = 'index.html' %}
+{% set current_file = 'index.html' %}
 {% block title %}Portfolio — Naddi's{% endblock %}
 
 {% block content %}
 <div class="portfolio-grid">
   {% for kat in kategorien %}
-  <a href="/{{ kat.slug }}.html" class="portfolio-item">
+  <a href="/{{ lang }}/{{ kat.slug }}.html" class="portfolio-item">
     <div class="portfolio-item-image">
       {% if kat.titelbild %}
       <img src="{{ kat.titelbild.bild }}"
-           alt="{{ kat.titelbild.alt }}"
+           alt="{{ kat.titelbild['alt_' + lang] or kat['name_' + lang] }}"
            loading="{% if loop.index <= 3 %}eager{% else %}lazy{% endif %}">
-      {% elif kat.bilder and kat.bilder|length > 0 %}
-      <img src="{{ kat.bilder[0].bild }}"
-           alt="{{ kat.bilder[0].alt }}"
-           loading="lazy">
       {% else %}
       <div class="portfolio-item-placeholder"></div>
       {% endif %}
     </div>
-    <div class="portfolio-item-label">{{ kat.name }}</div>
+    <div class="portfolio-item-label">{{ kat['name_' + lang] }}</div>
   </a>
   {% endfor %}
 </div>

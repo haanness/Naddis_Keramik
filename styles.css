@@ -74,10 +74,11 @@ img { display: block; max-width: 100%; height: auto; }
 .header-logo {
   display: flex;
   justify-content: center;
+  margin-left: 3rem;
 }
 
 .header-logo img {
-  height: 130px;
+  height: 100px;
   width: auto;
 }
 
@@ -679,3 +680,43 @@ a.portfolio-item:hover .portfolio-item-image img {
 .kat-nav a:hover { color: var(--dark); }
 .kat-nav svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 .kat-nav-placeholder { flex: 1; }
+
+/* =============================================
+   SPRACHSWITCH
+============================================= */
+
+.lang-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--light);
+  margin: 0 .5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.lang-switch {
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: hsl(0,0%,55%);
+  transition: color .2s;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.lang-switch:hover { color: var(--dark); }
+
+.mobile-lang {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--light);
+}
+
+.mobile-lang a {
+  font-size: .9rem;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: hsl(0,0%,55%);
+}

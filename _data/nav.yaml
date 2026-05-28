@@ -1,7 +1,10 @@
 links:
-  - titel: Portfolio
-    url: /index.html
-  - titel: About me
-    url: /about.html
-  - titel: Course
-    url: /course.html
+  - titel_de: Portfolio
+    titel_it: Portfolio
+    url: index.html
+  - titel_de: Über mich
+    titel_it: About me
+    url: about.html
+  - titel_de: Kurse
+    titel_it: Corsi
+    url: course.html

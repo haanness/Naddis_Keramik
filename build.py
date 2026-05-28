@@ -25,7 +25,8 @@ for fname in sorted(os.listdir('_kategorien')):
     kategorien.append(kat)
 
 # dist/ aufbauen
-os.makedirs('dist', exist_ok=True)
+os.makedirs('dist/de', exist_ok=True)
+os.makedirs('dist/it', exist_ok=True)
 
 for fname in ['styles.css', 'scripts.js']:
     shutil.copy(fname, f'dist/{fname}')
@@ -42,41 +43,58 @@ if os.path.exists('images/portfolio'):
         shutil.copy2(f'images/portfolio/{fname}', f'dist/images/portfolio/{fname}')
     print(f'✓ dist/images/portfolio/ ({len(os.listdir("images/portfolio"))} Bilder)')
 
-ctx = dict(nav=nav, kategorien=kategorien)
+# Seiten für beide Sprachen generieren
+for lang in ['de', 'it']:
+    ctx = dict(nav=nav, kategorien=kategorien, lang=lang)
 
-# index.html
+    # index.html
+    with open(f'dist/{lang}/index.html', 'w', encoding='utf-8') as f:
+        f.write(env.get_template('index.html').render(**ctx))
+    print(f'✓ dist/{lang}/index.html')
+
+    # Kategorieseiten
+    for i, kat in enumerate(kategorien):
+        slug = kat.get('slug', '')
+        if not slug:
+            continue
+        prev_kat = kategorien[i - 1] if i > 0 else None
+        next_kat = kategorien[i + 1] if i < len(kategorien) - 1 else None
+        with open(f'dist/{lang}/{slug}.html', 'w', encoding='utf-8') as f:
+            f.write(env.get_template('kategorie.html').render(
+                kat=kat, prev_kat=prev_kat, next_kat=next_kat, **ctx
+            ))
+    print(f'✓ dist/{lang}/ Kategorien ({len(kategorien)})')
+
+    # about.html
+    with open(f'dist/{lang}/about.html', 'w', encoding='utf-8') as f:
+        f.write(env.get_template('about.html').render(about=about, **ctx))
+    print(f'✓ dist/{lang}/about.html')
+
+    # course.html
+    with open(f'dist/{lang}/course.html', 'w', encoding='utf-8') as f:
+        f.write(env.get_template('course.html').render(course=course, **ctx))
+    print(f'✓ dist/{lang}/course.html')
+
+# Root index.html: leitet zur Browsersprache weiter (DE als Standard)
+root_redirect = """<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+  var lang = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
+  if (lang.startsWith('it')) {
+    window.location.replace('/it/index.html');
+  } else {
+    window.location.replace('/de/index.html');
+  }
+</script>
+<meta http-equiv="refresh" content="0;url=/de/index.html">
+</head>
+<body></body>
+</html>"""
+
 with open('dist/index.html', 'w', encoding='utf-8') as f:
-    f.write(env.get_template('index.html').render(**ctx))
-print('✓ dist/index.html')
+    f.write(root_redirect)
+print('✓ dist/index.html (Sprachweiche)')
 
-# Kategorieseiten mit prev/next
-for i, kat in enumerate(kategorien):
-    slug = kat.get('slug', '')
-    if not slug:
-        continue
-    prev_kat = kategorien[i - 1] if i > 0 else None
-    next_kat = kategorien[i + 1] if i < len(kategorien) - 1 else None
-    with open(f'dist/{slug}.html', 'w', encoding='utf-8') as f:
-        f.write(env.get_template('kategorie.html').render(
-            kat=kat,
-            prev_kat=prev_kat,
-            next_kat=next_kat,
-            **ctx
-        ))
-    for j, b in enumerate(kat.get('bilder', [])):
-        felder = [k for k in b.keys() if k != 'bild']
-        if any(b.get(k) for k in felder):
-            print(f'  Bild {j+1}: {[b.get(k) for k in felder]}')
-    print(f'✓ dist/{slug}.html ({len(kat.get("bilder",[]))} Bilder)')
-
-# about.html
-with open('dist/about.html', 'w', encoding='utf-8') as f:
-    f.write(env.get_template('about.html').render(about=about, **ctx))
-print('✓ dist/about.html')
-
-# course.html
-with open('dist/course.html', 'w', encoding='utf-8') as f:
-    f.write(env.get_template('course.html').render(course=course, **ctx))
-print('✓ dist/course.html')
-
-print(f'\nBuild fertig → dist/ ({len(kategorien)} Kategorien)')
+print(f'\nBuild fertig → dist/ (DE + IT, {len(kategorien)} Kategorien)')
