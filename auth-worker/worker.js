@@ -1,16 +1,11 @@
-// Decap CMS Auth Worker für Cloudflare
-// Basiert auf: https://github.com/sterlingwes/netlify-cms-github-oauth-provider
-// Ersetze CLIENT_ID und CLIENT_SECRET mit deinen GitHub OAuth App Werten
-
 const CLIENT_ID = 'DEIN_GITHUB_CLIENT_ID';
 const CLIENT_SECRET = 'DEIN_GITHUB_CLIENT_SECRET';
-const ORIGIN = 'https://DEINE-SEITE.pages.dev'; // deine Cloudflare Pages URL
+const ORIGIN = 'https://naddis-keramik.pages.dev';
 
 export default {
   async fetch(request) {
     const url = new URL(request.url);
 
-    // CORS
     const corsHeaders = {
       'Access-Control-Allow-Origin': ORIGIN,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -21,12 +16,11 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // Schritt 1: Browser → GitHub weiterleiten
+    // Schritt 1: Weiterleitung zu GitHub
     if (url.pathname === '/auth') {
       const params = new URLSearchParams({
         client_id: CLIENT_ID,
         scope: 'repo,user',
-        state: crypto.randomUUID(),
       });
       return Response.redirect(
         `https://github.com/login/oauth/authorize?${params}`,
@@ -34,51 +28,86 @@ export default {
       );
     }
 
-    // Schritt 2: GitHub → Token tauschen
+    // Schritt 2: Callback — Code gegen Token tauschen
     if (url.pathname === '/callback') {
       const code = url.searchParams.get('code');
+
       if (!code) {
         return new Response('Kein Code erhalten', { status: 400 });
       }
 
-      const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-          code,
-        }),
-      });
+      try {
+        const tokenRes = await fetch(
+          'https://github.com/login/oauth/access_token',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              client_id: CLIENT_ID,
+              client_secret: CLIENT_SECRET,
+              code: code,
+            }),
+          }
+        );
 
-      const { access_token, error } = await tokenRes.json();
+        const tokenData = await tokenRes.json();
+        const token = tokenData.access_token;
 
-      if (error || !access_token) {
-        return new Response(`Auth Fehler: ${error}`, { status: 400 });
+        if (!token) {
+          const errHtml = renderMessage('error', 'github', 
+            'Kein Token erhalten: ' + JSON.stringify(tokenData));
+          return new Response(errHtml, {
+            headers: { 'Content-Type': 'text/html', ...corsHeaders },
+          });
+        }
+
+        const successHtml = renderMessage('success', 'github', token);
+        return new Response(successHtml, {
+          headers: { 'Content-Type': 'text/html', ...corsHeaders },
+        });
+
+      } catch (err) {
+        const errHtml = renderMessage('error', 'github', err.message);
+        return new Response(errHtml, {
+          status: 500,
+          headers: { 'Content-Type': 'text/html', ...corsHeaders },
+        });
       }
+    }
 
-      // Token an CMS zurückgeben via postMessage
-      const html = `<!DOCTYPE html>
+    return new Response('Not found', { status: 404 });
+  },
+};
+
+function renderMessage(status, provider, content) {
+  const message = status === 'success'
+    ? JSON.stringify({ token: content, provider: provider })
+    : content;
+
+  return `<!DOCTYPE html>
 <html>
+<head><title>Authenticating...</title></head>
 <body>
+<p>Authentifizierung läuft...</p>
 <script>
-  window.opener.postMessage(
-    'authorization:github:success:${JSON.stringify({ token: access_token, provider: 'github' })}',
-    '${ORIGIN}'
-  );
-  window.close();
+  (function() {
+    function receiveMessage() {
+      var data = 'authorization:${provider}:${status}:' + ${
+        status === 'success'
+          ? 'JSON.stringify({ token: "' + content + '", provider: "' + provider + '" })'
+          : '"' + content + '"'
+      };
+      if (window.opener) {
+        window.opener.postMessage(data, '${ORIGIN}');
+        setTimeout(function() { window.close(); }, 500);
+      }
+    }
+    window.addEventListener('load', receiveMessage);
+  })();
 </script>
 </body>
 </html>`;
-
-      return new Response(html, {
-        headers: { 'Content-Type': 'text/html', ...corsHeaders },
-      });
-    }
-
-    return new Response('Nicht gefunden', { status: 404 });
-  },
-};
+}
