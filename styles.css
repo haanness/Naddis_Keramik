@@ -74,11 +74,10 @@ img { display: block; max-width: 100%; height: auto; }
 .header-logo {
   display: flex;
   justify-content: center;
-  margin-left: 3rem;
 }
 
 .header-logo img {
-  height: 100px;
+  height: 130px;
   width: auto;
 }
 
