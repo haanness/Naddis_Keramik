@@ -16,7 +16,10 @@
 <div class="kategorie-grid">
   {% for bild in kat.bilder %}
   {% set beschreibung = bild.titel or bild.caption or bild.alt or bild.beschreibung or '' %}
-  <div class="kategorie-item">
+  <div class="kategorie-item"
+       data-index="{{ loop.index0 }}"
+       data-src="{{ bild.bild }}"
+       data-caption="{{ beschreibung }}">
     <img src="{{ bild.bild }}"
          alt="{{ beschreibung or kat.name }}"
          loading="{% if loop.index <= 4 %}eager{% else %}lazy{% endif %}">
@@ -30,4 +33,96 @@
   <div class="kategorie-leer"><p>Noch keine Bilder in dieser Kategorie.</p></div>
   {% endif %}
 </div>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lb-close" aria-label="Schließen">&times;</button>
+  <button class="lightbox-btn lightbox-prev" id="lb-prev" aria-label="Vorheriges Bild">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="lightbox-img-wrap">
+    <img id="lb-img" src="" alt="">
+    <div class="lightbox-caption" id="lb-caption"></div>
+  </div>
+  <button class="lightbox-btn lightbox-next" id="lb-next" aria-label="Nächstes Bild">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lightbox-counter" id="lb-counter"></div>
+</div>
+
+<!-- Kategorie-Navigation -->
+<nav class="kat-nav">
+  {% if prev_kat %}
+  <a href="/{{ prev_kat.slug }}.html">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    {{ prev_kat.name }}
+  </a>
+  {% else %}
+  <span class="kat-nav-placeholder"></span>
+  {% endif %}
+
+  {% if next_kat %}
+  <a href="/{{ next_kat.slug }}.html">
+    {{ next_kat.name }}
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+  {% else %}
+  <span class="kat-nav-placeholder"></span>
+  {% endif %}
+</nav>
+
+<script>
+(function() {
+  // Bilder-Daten aus dem DOM lesen
+  var items = document.querySelectorAll('.kategorie-item[data-src]');
+  var bilder = Array.from(items).map(function(el) {
+    return { src: el.dataset.src, caption: el.dataset.caption || '' };
+  });
+
+  var current = 0;
+  var overlay = document.getElementById('lightbox');
+  var img     = document.getElementById('lb-img');
+  var caption = document.getElementById('lb-caption');
+  var counter = document.getElementById('lb-counter');
+
+  function show(index) {
+    current = (index + bilder.length) % bilder.length;
+    img.src = bilder[current].src;
+    img.alt = bilder[current].caption;
+    caption.textContent = bilder[current].caption;
+    counter.textContent = (current + 1) + ' / ' + bilder.length;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Klick auf Bild
+  items.forEach(function(el) {
+    el.addEventListener('click', function() {
+      show(parseInt(el.dataset.index));
+    });
+  });
+
+  document.getElementById('lb-close').addEventListener('click', close);
+  document.getElementById('lb-prev').addEventListener('click', function() { show(current - 1); });
+  document.getElementById('lb-next').addEventListener('click', function() { show(current + 1); });
+
+  // Klick auf Hintergrund schliesst
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) close();
+  });
+
+  // Tastatur
+  document.addEventListener('keydown', function(e) {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'ArrowLeft')  show(current - 1);
+    if (e.key === 'Escape')     close();
+  });
+})();
+</script>
 {% endblock %}

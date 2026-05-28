@@ -20,7 +20,6 @@ for fname in sorted(os.listdir('_kategorien')):
         kat = yaml.safe_load(f)
     if not kat:
         continue
-    # Sicherstellen dass bilder immer eine Liste ist
     if 'bilder' not in kat or kat['bilder'] is None:
         kat['bilder'] = []
     kategorien.append(kat)
@@ -45,26 +44,37 @@ if os.path.exists('images/portfolio'):
 
 ctx = dict(nav=nav, kategorien=kategorien)
 
+# index.html
 with open('dist/index.html', 'w', encoding='utf-8') as f:
     f.write(env.get_template('index.html').render(**ctx))
 print('✓ dist/index.html')
 
-for kat in kategorien:
+# Kategorieseiten mit prev/next
+for i, kat in enumerate(kategorien):
     slug = kat.get('slug', '')
     if not slug:
         continue
+    prev_kat = kategorien[i - 1] if i > 0 else None
+    next_kat = kategorien[i + 1] if i < len(kategorien) - 1 else None
     with open(f'dist/{slug}.html', 'w', encoding='utf-8') as f:
-        f.write(env.get_template('kategorie.html').render(kat=kat, **ctx))
-    # Debug: zeige Felder der Bilder
-    for i, b in enumerate(kat.get('bilder', [])):
+        f.write(env.get_template('kategorie.html').render(
+            kat=kat,
+            prev_kat=prev_kat,
+            next_kat=next_kat,
+            **ctx
+        ))
+    for j, b in enumerate(kat.get('bilder', [])):
         felder = [k for k in b.keys() if k != 'bild']
-        print(f'  Bild {i+1}: felder={felder}, wert={[b.get(k) for k in felder]}')
+        if any(b.get(k) for k in felder):
+            print(f'  Bild {j+1}: {[b.get(k) for k in felder]}')
     print(f'✓ dist/{slug}.html ({len(kat.get("bilder",[]))} Bilder)')
 
+# about.html
 with open('dist/about.html', 'w', encoding='utf-8') as f:
     f.write(env.get_template('about.html').render(about=about, **ctx))
 print('✓ dist/about.html')
 
+# course.html
 with open('dist/course.html', 'w', encoding='utf-8') as f:
     f.write(env.get_template('course.html').render(course=course, **ctx))
 print('✓ dist/course.html')

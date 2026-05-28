@@ -4,7 +4,6 @@ backend:
   branch: main
   base_url: https://decap-auth.hannes-oberparleiter.workers.dev
 
-
 media_folder: "images/portfolio"
 public_folder: "/images/portfolio"
 
