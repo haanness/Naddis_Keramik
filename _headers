@@ -1,0 +1,9 @@
+# Sicherheits-Header für alle Seiten
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# CMS darf in iframe geöffnet werden
+/admin/*
+  X-Frame-Options: SAMEORIGIN
