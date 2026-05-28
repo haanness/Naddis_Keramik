@@ -42,11 +42,11 @@
   </button>
   <div class="lightbox-img-wrap">
     <img id="lb-img" src="" alt="">
-    <div class="lightbox-caption" id="lb-caption"></div>
   </div>
   <button class="lightbox-btn lightbox-next" id="lb-next" aria-label="Nächstes Bild">
     <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
   </button>
+  <div class="lightbox-caption" id="lb-caption"></div>
   <div class="lightbox-counter" id="lb-counter"></div>
 </div>
 
@@ -54,7 +54,9 @@
 <nav class="kat-nav">
   {% if prev_kat %}
   <a href="/{{ prev_kat.slug }}.html">
-    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+    </svg>
     {{ prev_kat.name }}
   </a>
   {% else %}
@@ -64,7 +66,9 @@
   {% if next_kat %}
   <a href="/{{ next_kat.slug }}.html">
     {{ next_kat.name }}
-    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M5 12h14M14 6l6 6-6 6"/>
+    </svg>
   </a>
   {% else %}
   <span class="kat-nav-placeholder"></span>
@@ -73,17 +77,24 @@
 
 <script>
 (function() {
-  // Bilder-Daten aus dem DOM lesen
   var items = document.querySelectorAll('.kategorie-item[data-src]');
   var bilder = Array.from(items).map(function(el) {
     return { src: el.dataset.src, caption: el.dataset.caption || '' };
   });
 
   var current = 0;
-  var overlay = document.getElementById('lightbox');
-  var img     = document.getElementById('lb-img');
-  var caption = document.getElementById('lb-caption');
-  var counter = document.getElementById('lb-counter');
+  var overlay  = document.getElementById('lightbox');
+  var img      = document.getElementById('lb-img');
+  var caption  = document.getElementById('lb-caption');
+  var counter  = document.getElementById('lb-counter');
+  var btnPrev  = document.getElementById('lb-prev');
+  var btnNext  = document.getElementById('lb-next');
+
+  // Pfeile ausblenden wenn nur 1 Bild
+  if (bilder.length <= 1) {
+    btnPrev.style.display = 'none';
+    btnNext.style.display = 'none';
+  }
 
   function show(index) {
     current = (index + bilder.length) % bilder.length;
@@ -100,7 +111,6 @@
     document.body.style.overflow = '';
   }
 
-  // Klick auf Bild
   items.forEach(function(el) {
     el.addEventListener('click', function() {
       show(parseInt(el.dataset.index));
@@ -108,15 +118,13 @@
   });
 
   document.getElementById('lb-close').addEventListener('click', close);
-  document.getElementById('lb-prev').addEventListener('click', function() { show(current - 1); });
-  document.getElementById('lb-next').addEventListener('click', function() { show(current + 1); });
+  btnPrev.addEventListener('click', function() { show(current - 1); });
+  btnNext.addEventListener('click', function() { show(current + 1); });
 
-  // Klick auf Hintergrund schliesst
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) close();
   });
 
-  // Tastatur
   document.addEventListener('keydown', function(e) {
     if (!overlay.classList.contains('open')) return;
     if (e.key === 'ArrowRight') show(current + 1);

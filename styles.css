@@ -74,7 +74,6 @@ img { display: block; max-width: 100%; height: auto; }
 .header-logo {
   display: flex;
   justify-content: center;
-  margin-right: 3rem;
 }
 
 .header-logo img {
@@ -499,11 +498,12 @@ a.portfolio-item {
 }
 
 .kategorie-item-caption {
-  padding: .6rem .8rem;
+  padding: .5rem 0 .4rem;
   font-size: .75rem;
   font-weight: 300;
   letter-spacing: .03em;
-  color: hsl(0,0%,45%);
+  color: hsl(0,0%,55%);
+  background: none;
 }
 
 /* Startseite: portfolio-item als Link */
@@ -606,7 +606,8 @@ a.portfolio-item:hover .portfolio-item-image img {
   font-size: .78rem;
   font-weight: 300;
   letter-spacing: .04em;
-  max-width: 60vw;
+  max-width: calc(100vw - 120px);
+  z-index: 1002;
 }
 
 .lightbox-btn {
@@ -650,6 +651,7 @@ a.portfolio-item:hover .portfolio-item-image img {
   color: hsl(0,0%,55%);
   font-size: .75rem;
   letter-spacing: .06em;
+  z-index: 1002;
 }
 
 /* =============================================
@@ -661,20 +663,20 @@ a.portfolio-item:hover .portfolio-item-image img {
   justify-content: space-between;
   align-items: center;
   padding: clamp(20px, 3vw, 40px) clamp(24px, 4vw, 64px) clamp(32px, 5vw, 64px);
-  border-top: 1px solid var(--light);
 }
 
 .kat-nav a {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  font-size: .78rem;
+  gap: .4rem;
+  font-size: .75rem;
   font-weight: 500;
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: hsl(0,0%,50%);
+  color: hsl(0,0%,55%);
   transition: color .2s;
+  flex-shrink: 0;
 }
 .kat-nav a:hover { color: var(--dark); }
-.kat-nav svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.kat-nav svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
 .kat-nav-placeholder { flex: 1; }
