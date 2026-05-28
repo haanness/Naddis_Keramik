@@ -7,7 +7,6 @@
   <link rel="alternate" hreflang="de" href="/de/{{ current_file }}">
   <link rel="alternate" hreflang="it" href="/it/{{ current_file }}">
   <link rel="stylesheet" href="/styles.css">
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -26,18 +25,21 @@
     </div>
   </div>
   <nav class="header-nav">
-    {% for link in nav.links %}
-    <a href="/{{ lang }}/{{ link.url }}"
-       {% if current_url == link.url %}class="active"{% endif %}>
-      {{ link['titel_' + lang] }}
-    </a>
-    {% endfor %}
-    <span class="lang-divider"></span>
-    {% if lang == 'de' %}
-    <a href="/it/{{ current_file }}" class="lang-switch">IT</a>
-    {% else %}
-    <a href="/de/{{ current_file }}" class="lang-switch">DE</a>
-    {% endif %}
+    <div><!-- spacer left --></div>
+    <div class="header-nav-links">
+      {% for link in nav.links %}
+      <a href="/{{ lang }}/{{ link.url }}"
+         {% if current_url == link.url %}class="active"{% endif %}>
+        {{ link['titel_' + lang] }}
+      </a>
+      {% endfor %}
+    </div>
+    <div class="header-nav-lang">
+      <a href="/de/{{ current_file }}"
+         class="lang-switch{% if lang == 'de' %} active{% endif %}">DE</a>
+      <a href="/it/{{ current_file }}"
+         class="lang-switch{% if lang == 'it' %} active{% endif %}">IT</a>
+    </div>
   </nav>
 </header>
 
@@ -47,11 +49,10 @@
   <a href="/{{ lang }}/{{ link.url }}">{{ link['titel_' + lang] }}</a>
   {% endfor %}
   <div class="mobile-lang">
-    {% if lang == 'de' %}
-    <a href="/it/{{ current_file }}">Italiano</a>
-    {% else %}
-    <a href="/de/{{ current_file }}">Deutsch</a>
-    {% endif %}
+    <a href="/de/{{ current_file }}"
+       class="lang-switch{% if lang == 'de' %} active{% endif %}">DE</a>
+    <a href="/it/{{ current_file }}"
+       class="lang-switch{% if lang == 'it' %} active{% endif %}">IT</a>
   </div>
 </nav>
 

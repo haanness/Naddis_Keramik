@@ -86,13 +86,27 @@ img { display: block; max-width: 100%; height: auto; }
 .header-nav {
   max-width: var(--max-w);
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  padding-bottom: 14px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 var(--gap) 14px;
 }
 
-.header-nav a {
+.header-nav-links {
+  grid-column: 2;
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.header-nav-lang {
+  grid-column: 3;
+  display: flex;
+  gap: .75rem;
+  justify-content: flex-end;
+}
+
+.header-nav-links a {
   font-size: .8rem;
   font-weight: 400;
   letter-spacing: .04em;
@@ -102,8 +116,8 @@ img { display: block; max-width: 100%; height: auto; }
   transition: border-color .2s;
 }
 
-.header-nav a:hover,
-.header-nav a.active {
+.header-nav-links a:hover,
+.header-nav-links a.active {
   border-bottom-color: var(--dark);
 }
 
@@ -685,14 +699,7 @@ a.portfolio-item:hover .portfolio-item-image img {
    SPRACHSWITCH
 ============================================= */
 
-.lang-divider {
-  width: 1px;
-  height: 14px;
-  background: var(--light);
-  margin: 0 .5rem;
-  display: inline-block;
-  vertical-align: middle;
-}
+.lang-divider { display: none; }
 
 .lang-switch {
   font-size: .8rem;
@@ -707,6 +714,10 @@ a.portfolio-item:hover .portfolio-item-image img {
 }
 
 .lang-switch:hover { color: var(--dark); }
+
+.lang-switch.active {
+  color: var(--dark);
+}
 
 .mobile-lang {
   margin-top: 1rem;
