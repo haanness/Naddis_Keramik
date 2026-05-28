@@ -2,7 +2,7 @@ backend:
   name: github
   repo: haanness/Naddis_Keramik
   branch: main
-  base_url: decap-auth.hannes-oberparleiter.workers.dev
+  base_url: https://decap-auth.hannes-oberparleiter.workers.dev
 
 media_folder: "images/portfolio"
 public_folder: "/images/portfolio"
