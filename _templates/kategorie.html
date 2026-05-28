@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% set current_url = '/' + kat.slug + '.html' %}
+{% set bild_count = kat.bilder | length %}
 {% block title %}{{ kat.name }} — Naddi's{% endblock %}
 
 {% block content %}
@@ -37,17 +38,23 @@
 <!-- Lightbox -->
 <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true">
   <button class="lightbox-close" id="lb-close" aria-label="Schließen">&times;</button>
+  {% if bild_count > 1 %}
   <button class="lightbox-btn lightbox-prev" id="lb-prev" aria-label="Vorheriges Bild">
     <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
   </button>
+  {% endif %}
   <div class="lightbox-img-wrap">
     <img id="lb-img" src="" alt="">
   </div>
+  {% if bild_count > 1 %}
   <button class="lightbox-btn lightbox-next" id="lb-next" aria-label="Nächstes Bild">
     <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
   </button>
+  {% endif %}
   <div class="lightbox-caption" id="lb-caption"></div>
+  {% if bild_count > 1 %}
   <div class="lightbox-counter" id="lb-counter"></div>
+  {% endif %}
 </div>
 
 <!-- Kategorie-Navigation -->
@@ -77,31 +84,24 @@
 
 <script>
 (function() {
-  var items = document.querySelectorAll('.kategorie-item[data-src]');
+  var items  = document.querySelectorAll('.kategorie-item[data-src]');
   var bilder = Array.from(items).map(function(el) {
     return { src: el.dataset.src, caption: el.dataset.caption || '' };
   });
-
   var current = 0;
-  var overlay  = document.getElementById('lightbox');
-  var img      = document.getElementById('lb-img');
-  var caption  = document.getElementById('lb-caption');
-  var counter  = document.getElementById('lb-counter');
-  var btnPrev  = document.getElementById('lb-prev');
-  var btnNext  = document.getElementById('lb-next');
-
-  // Pfeile ausblenden wenn nur 1 Bild
-  if (bilder.length <= 1) {
-    btnPrev.style.display = 'none';
-    btnNext.style.display = 'none';
-  }
+  var overlay = document.getElementById('lightbox');
+  var img     = document.getElementById('lb-img');
+  var caption = document.getElementById('lb-caption');
+  var counter = document.getElementById('lb-counter');
+  var btnPrev = document.getElementById('lb-prev');
+  var btnNext = document.getElementById('lb-next');
 
   function show(index) {
     current = (index + bilder.length) % bilder.length;
     img.src = bilder[current].src;
     img.alt = bilder[current].caption;
     caption.textContent = bilder[current].caption;
-    counter.textContent = (current + 1) + ' / ' + bilder.length;
+    if (counter) counter.textContent = (current + 1) + ' / ' + bilder.length;
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -112,14 +112,12 @@
   }
 
   items.forEach(function(el) {
-    el.addEventListener('click', function() {
-      show(parseInt(el.dataset.index));
-    });
+    el.addEventListener('click', function() { show(parseInt(el.dataset.index)); });
   });
 
   document.getElementById('lb-close').addEventListener('click', close);
-  btnPrev.addEventListener('click', function() { show(current - 1); });
-  btnNext.addEventListener('click', function() { show(current + 1); });
+  if (btnPrev) btnPrev.addEventListener('click', function() { show(current - 1); });
+  if (btnNext) btnNext.addEventListener('click', function() { show(current + 1); });
 
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) close();
@@ -127,9 +125,9 @@
 
   document.addEventListener('keydown', function(e) {
     if (!overlay.classList.contains('open')) return;
-    if (e.key === 'ArrowRight') show(current + 1);
-    if (e.key === 'ArrowLeft')  show(current - 1);
-    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowRight' && btnNext) show(current + 1);
+    if (e.key === 'ArrowLeft'  && btnPrev) show(current - 1);
+    if (e.key === 'Escape') close();
   });
 })();
 </script>
