@@ -101,7 +101,7 @@ img { display: block; max-width: 100%; height: auto; }
 .header-nav-lang {
   grid-column: 3;
   display: flex;
-  gap: .75rem;
+  gap: .70rem;
   justify-content: flex-end;
 }
 
