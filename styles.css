@@ -86,7 +86,7 @@ img { display: block; max-width: 100%; height: auto; }
   max-width: var(--max-w);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: end;
   padding: 0 var(--gap) 14px;
 }
