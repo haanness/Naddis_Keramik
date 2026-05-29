@@ -66,24 +66,24 @@ img { display: block; max-width: 100%; height: auto; }
 .header-nav {
   max-width: var(--max-w);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: end;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   padding: 0 var(--gap) 14px;
+  position: relative;
 }
 
 .header-nav-links {
-  grid-column: 2;
   display: flex;
   gap: 2.5rem;
-  justify-content: center;
 }
 
 .header-nav-lang {
-  grid-column: 3;
+  position: absolute;
+  right: var(--gap);
+  bottom: 14px;
   display: flex;
   gap: .75rem;
-  justify-content: flex-end;
 }
 
 .header-nav-links a {
