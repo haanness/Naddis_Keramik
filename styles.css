@@ -38,7 +38,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .site-header {
   border-bottom: 1px solid var(--light);
-  padding: 18px var(--gap) 0;
+  padding: 24px var(--gap) 0;
 }
 
 /* Top bar: 3 columns */
@@ -48,6 +48,7 @@ img { display: block; max-width: 100%; height: auto; }
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 120px;
   padding-bottom: 14px;
   position: relative;
 }
@@ -81,7 +82,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .header-nav-lang {
   position: absolute;
-  right: 0;
+  right: var(--gap);
   bottom: 14px;
   display: flex;
   gap: .75rem;
