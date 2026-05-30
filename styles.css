@@ -53,8 +53,9 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .header-logo {
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .header-logo img {
@@ -80,7 +81,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 .header-nav-lang {
   position: absolute;
-  right: var(--gap);
+  right: 0;
   bottom: 14px;
   display: flex;
   gap: .75rem;
@@ -712,4 +713,8 @@ a.portfolio-item:hover .portfolio-item-image img {
   font-weight: 400;
   letter-spacing: .06em;
   color: hsl(0,0%,55%);
+}
+/* Mobile: Lightbox-Navigationspfeile ausblenden, Swipe übernimmt */
+@media (max-width: 768px) {
+  .lightbox-btn { display: none; }
 }

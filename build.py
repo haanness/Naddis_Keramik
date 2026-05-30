@@ -27,6 +27,7 @@ for fname in sorted(os.listdir('_kategorien')):
 # dist/ aufbauen
 os.makedirs('dist/de', exist_ok=True)
 os.makedirs('dist/it', exist_ok=True)
+os.makedirs('dist/en', exist_ok=True)
 
 for fname in ['styles.css', 'scripts.js']:
     shutil.copy(fname, f'dist/{fname}')
@@ -43,8 +44,8 @@ if os.path.exists('images/portfolio'):
         shutil.copy2(f'images/portfolio/{fname}', f'dist/images/portfolio/{fname}')
     print(f'✓ dist/images/portfolio/ ({len(os.listdir("images/portfolio"))} Bilder)')
 
-# Seiten für beide Sprachen generieren
-for lang in ['de', 'it']:
+# Seiten für alle drei Sprachen generieren
+for lang in ['de', 'it', 'en']:
     ctx = dict(nav=nav, kategorien=kategorien, lang=lang)
 
     # index.html
@@ -84,6 +85,8 @@ root_redirect = """<!DOCTYPE html>
   var lang = (navigator.language || navigator.userLanguage || 'de').toLowerCase();
   if (lang.startsWith('it')) {
     window.location.replace('/it/index.html');
+  } else if (lang.startsWith('en')) {
+    window.location.replace('/en/index.html');
   } else {
     window.location.replace('/de/index.html');
   }
@@ -97,4 +100,4 @@ with open('dist/index.html', 'w', encoding='utf-8') as f:
     f.write(root_redirect)
 print('✓ dist/index.html (Sprachweiche)')
 
-print(f'\nBuild fertig → dist/ (DE + IT, {len(kategorien)} Kategorien)')
+print(f'\nBuild fertig → dist/ (DE + IT + EN, {len(kategorien)} Kategorien)')

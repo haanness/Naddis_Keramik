@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set current_url = 'about.html' %}
 {% set current_file = 'about.html' %}
-{% block title %}{% if lang == 'de' %}Über mich{% else %}About me{% endif %} — Naddi's{% endblock %}
+{% block title %}{% if lang == 'de' %}Über mich{% elif lang == 'it' %}Chi sono{% else %}About me{% endif %} — Naddi's{% endblock %}
 
 {% block content %}
 <div class="about-wrapper">
@@ -9,7 +9,7 @@
     <img src="{{ about.foto }}" alt="Nadia Mussner" loading="eager">
   </div>
   <div class="about-content">
-    <h1>{% if lang == 'de' %}Über mich{% else %}About me{% endif %}</h1>
+    <h1>{% if lang == 'de' %}Über mich{% elif lang == 'it' %}Chi sono{% else %}About me{% endif %}</h1>
 
     <div class="about-text-block">
       {% for p in about['text_' + lang] %}
@@ -20,18 +20,14 @@
     <div class="about-lang-divider"></div>
 
     <div class="about-contact">
-      <h2>{% if lang == 'de' %}Kontakt{% else %}Contatto{% endif %}</h2>
+      <h2>{% if lang == 'de' %}Kontakt{% elif lang == 'it' %}Contatto{% else %}Contact{% endif %}</h2>
       <p>
         <a href="mailto:{{ about.email }}">{{ about.email }}</a><br>
-        <a href="tel:{{ about.telefon|replace(' ','') }}">{{ about.telefon }}</a>
+        <a href="tel:{{ about.telefon|replace(' ','') }}">{{ about.telefon }}</a><br>
+        <a href="https://www.instagram.com/{{ about.instagram }}/" target="_blank" rel="noopener">
+          Instagram: {{ about.instagram }}
+        </a>
       </p>
-    </div>
-
-    <div class="about-social">
-      <h3>{% if lang == 'de' %}Folgen{% else %}Seguici{% endif %}</h3>
-      <a href="https://www.instagram.com/{{ about.instagram }}/" target="_blank" rel="noopener">
-        Instagram: {{ about.instagram }}
-      </a>
     </div>
   </div>
 </div>

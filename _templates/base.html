@@ -6,6 +6,7 @@
   <title>{% block title %}Naddi's{% endblock %}</title>
   <link rel="alternate" hreflang="de" href="/de/{{ current_file }}">
   <link rel="alternate" hreflang="it" href="/it/{{ current_file }}">
+  <link rel="alternate" hreflang="en" href="/en/{{ current_file }}">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -37,6 +38,8 @@
          class="lang-switch{% if lang == 'de' %} active{% endif %}">DE</a>
       <a href="/it/{{ current_file }}"
          class="lang-switch{% if lang == 'it' %} active{% endif %}">IT</a>
+      <a href="/en/{{ current_file }}"
+         class="lang-switch{% if lang == 'en' %} active{% endif %}">EN</a>
     </div>
   </nav>
 </header>
@@ -51,6 +54,8 @@
        class="lang-switch{% if lang == 'de' %} active{% endif %}">DE</a>
     <a href="/it/{{ current_file }}"
        class="lang-switch{% if lang == 'it' %} active{% endif %}">IT</a>
+    <a href="/en/{{ current_file }}"
+       class="lang-switch{% if lang == 'en' %} active{% endif %}">EN</a>
   </div>
 </nav>
 
