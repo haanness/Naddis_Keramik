@@ -23,22 +23,25 @@ collections:
     fields:
       - { name: name_de, label: "Name (Deutsch)",    widget: string }
       - { name: name_it, label: "Name (Italiano)",   widget: string }
+      - { name: name_en, label: "Name (English)",    widget: string }
       - { name: slug,    label: "URL-Name",           widget: string, hint: "z.B. vasen, lampade — keine Leerzeichen" }
       - name: titelbild
         label: Titelbild (Startseite)
         widget: object
         fields:
-          - { name: bild,   label: Bild,                  widget: image  }
-          - { name: alt_de, label: Bildbeschreibung (DE),  widget: string }
-          - { name: alt_it, label: Bildbeschreibung (IT),  widget: string }
+          - { name: bild,   label: Bild,                   widget: image  }
+          - { name: alt_de, label: Bildbeschreibung (DE),   widget: string }
+          - { name: alt_it, label: Bildbeschreibung (IT),   widget: string }
+          - { name: alt_en, label: Bildbeschreibung (EN),   widget: string }
       - name: bilder
         label: Bilder
         label_singular: Bild
         widget: list
         fields:
-          - { name: bild,             label: Bild,                   widget: image  }
-          - { name: beschreibung_de,  label: Beschreibung (Deutsch),  widget: string, required: false }
-          - { name: beschreibung_it,  label: Descrizione (Italiano),  widget: string, required: false }
+          - { name: bild,            label: Bild,                    widget: image  }
+          - { name: beschreibung_de, label: Beschreibung (Deutsch),   widget: string, required: false }
+          - { name: beschreibung_it, label: Descrizione (Italiano),   widget: string, required: false }
+          - { name: beschreibung_en, label: Description (English),    widget: string, required: false }
 
   # ── Navigation ──────────────────────────────────────────
   - name: navigation
@@ -53,9 +56,10 @@ collections:
             label_singular: Link
             widget: list
             fields:
-              - { name: titel_de, label: "Titel (Deutsch)",  widget: string }
-              - { name: titel_it, label: "Titolo (Italiano)", widget: string }
-              - { name: url,      label: URL,                 widget: string }
+              - { name: titel_de, label: "Titel (Deutsch)",   widget: string }
+              - { name: titel_it, label: "Titolo (Italiano)",  widget: string }
+              - { name: titel_en, label: "Title (English)",    widget: string }
+              - { name: url,      label: URL,                  widget: string }
 
   # ── Fixe Seiten ─────────────────────────────────────────
   - name: fixe-seiten
@@ -79,16 +83,23 @@ collections:
             label_singular: Paragrafo
             fields:
               - { name: absatz, label: Paragrafo, widget: text }
+          - name: text_en
+            label: Text (English)
+            widget: list
+            label_singular: Paragraph
+            fields:
+              - { name: absatz, label: Paragraph, widget: text }
           - { name: email,     label: E-Mail,                      widget: string }
           - { name: telefon,   label: Telefon,                     widget: string }
           - { name: instagram, label: "Instagram Handle (ohne @)",  widget: string }
 
       - name: course
-        label: Kurse / Corsi
+        label: Kurse / Corsi / Courses
         file: _data/course.yaml
         fields:
           - { name: titel_de, label: "Seitentitel (Deutsch)",  widget: string }
           - { name: titel_it, label: "Titolo (Italiano)",       widget: string }
+          - { name: titel_en, label: "Page Title (English)",    widget: string }
           - name: text_de
             label: Text (Deutsch)
             widget: list
@@ -101,3 +112,9 @@ collections:
             label_singular: Paragrafo
             fields:
               - { name: absatz, label: Paragrafo, widget: text }
+          - name: text_en
+            label: Text (English)
+            widget: list
+            label_singular: Paragraph
+            fields:
+              - { name: absatz, label: Paragraph, widget: text }
