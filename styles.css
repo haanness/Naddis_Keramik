@@ -170,8 +170,8 @@ main { flex: 1; }
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(8px, 1.5vw, 20px);
-  padding: var(--page-top) clamp(24px, 4vw, 64px) clamp(40px, 6vw, 96px);
+  gap: clamp(16px, 2.5vw, 36px);
+  padding: var(--page-top) clamp(12px, 2vw, 32px) clamp(40px, 6vw, 96px);
 }
 
 @media (max-width: 767px) {
@@ -469,8 +469,8 @@ a.portfolio-item {
 .kategorie-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(8px, 1.5vw, 20px);
-  padding: clamp(24px, 4vw, 64px);
+  gap: clamp(16px, 2.5vw, 36px);
+  padding: clamp(12px, 2vw, 32px);
   padding-top: 0;
   padding-bottom: clamp(40px, 6vw, 96px);
 }
@@ -707,6 +707,8 @@ a.portfolio-item:hover .portfolio-item-image img {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid var(--light);
+  display: flex;
+  gap: 1.5rem;
 }
 
 .mobile-lang a {
