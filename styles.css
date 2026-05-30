@@ -96,6 +96,8 @@ img { display: block; max-width: 100%; height: auto; }
   padding-bottom: 3px;
   border-bottom: 1px solid transparent;
   transition: border-color .2s;
+  min-width: 7rem;
+  text-align: center;
 }
 
 .header-nav-links a:hover,
