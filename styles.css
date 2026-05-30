@@ -170,8 +170,8 @@ main { flex: 1; }
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2.5vw, 36px);
-  padding: var(--page-top) clamp(12px, 2vw, 32px) clamp(40px, 6vw, 96px);
+  gap: clamp(12px, 2vw, 28px);
+  padding: var(--page-top) clamp(18px, 3vw, 48px) clamp(40px, 6vw, 96px);
 }
 
 @media (max-width: 767px) {
@@ -469,8 +469,8 @@ a.portfolio-item {
 .kategorie-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2.5vw, 36px);
-  padding: clamp(12px, 2vw, 32px);
+  gap: clamp(12px, 2vw, 28px);
+  padding: clamp(18px, 3vw, 48px);
   padding-top: 0;
   padding-bottom: clamp(40px, 6vw, 96px);
 }
